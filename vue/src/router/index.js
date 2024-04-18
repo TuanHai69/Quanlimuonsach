@@ -36,6 +36,30 @@ const routes = [
         component: () => import("@/views/SachAdd.vue"),
         props: true // Truyền các biến trong $route.params vào làm props
     },
+    {
+        path: "/sach/:id",
+        name: "sach.edit",
+        component: () => import("@/views/SachEdit.vue"),
+        props: true // Truyền các biến trong $route.params vào làm props
+    },
+    {
+        path: "/nhaxuatban",
+        name: "nhaxuatbanview",
+        component: () => import("@/views/NhaxuatbanView.vue"),
+        props: true // Truyền các biến trong $route.params vào làm props
+    },
+    {
+        path: "/nhaxuatban/add",
+        name: "nhaxuatban.add",
+        component: () => import("@/views/NhaxuatbanAdd.vue"),
+        props: true // Truyền các biến trong $route.params vào làm props
+    },
+    {
+        path: "/nhaxuatban/:id",
+        name: "nhaxuatban.edit",
+        component: () => import("@/views/NhaxuatbanEdit.vue"),
+        props: true // Truyền các biến trong $route.params vào làm props
+    },
 ];
 
 const router = createRouter({

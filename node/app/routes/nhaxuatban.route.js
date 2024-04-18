@@ -3,12 +3,12 @@ const nhaxuatban = require("../controllers/nhaxuatban.controller");
 
 const router = express.Router();
 
-router.route("/nxb/")
+router.route("/")
     .get(nhaxuatban.findAll)
     .post(nhaxuatban.create)
     .delete(nhaxuatban.deleteAll);
 
-router.route("/nxb/:manxb")
+router.route("/:id")
     .get(nhaxuatban.findOne)
     .put(nhaxuatban.update)
     .delete(nhaxuatban.delete);

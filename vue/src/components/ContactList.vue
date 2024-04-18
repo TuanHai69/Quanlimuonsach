@@ -1,7 +1,7 @@
 <script>
 export default {
     props: {
-        contacts: { type: Array, default: [] },
+        nhaxuatban: { type: Array, default: [] },
         activeIndex: { type: Number, default: -1 },
     },
     emits: ["update:activeIndex"],
@@ -14,15 +14,15 @@ export default {
 </script>
 
 <template>
-    <ul class="list-group">
-        <li 
-        class="list-group-item"
-        v-for="(contact, index) in contacts"
-        :key="contact._id"
+    <div class="d-flex flex-row flex-wrap">
+        <div 
+        class="p-2"
+        v-for="(nxb, index) in nhaxuatban"
+        :key="nxb._id"
         :class="{ active: index === activeIndex }"
         @click="updateActiveIndex(index)"
         >
-            {{ contact.name }}
-        </li>
-    </ul>
+            {{ nxb.tennxb }}
+        </div>
+    </div>
 </template>

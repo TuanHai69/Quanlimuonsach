@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-        <a href="/" class="navbar-brand">Ứng dụng Quản lý danh bạ</a>
+        <a href="/" class="navbar-brand">Ứng dụng quản lý mượn sách </a>
         <div class="mr-auto navbar-nav">
             <li class="nav-item">
                 <router-link :to="{ name: 'contactbook' }" class="nav-link">
@@ -14,6 +14,13 @@
                     <i class="fas fa-book"></i>
                 </router-link>
             </li>
+            <li class="nav-item">
+                <router-link :to="{ name: 'nhaxuatbanview' }" class="nav-link">
+                    Nhà xuất bản
+                    <i class="fas fa-book"></i>
+                </router-link>
+            </li>
         </div>
+
     </nav>
 </template>

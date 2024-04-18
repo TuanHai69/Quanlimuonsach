@@ -10,7 +10,17 @@
         <!-- <strong>Mã NXB:</strong> {{ sach.manxb }}<br> -->
         <strong>Tác giả:</strong> {{ sach.tacgia }}
       </p>
-      <a href="#" class="btn btn-primary">Xem chi tiết</a>
+      <div class="d-flex justify-content-end">
+        <a href="#" class="btn btn-primary mr-auto">Mượn</a>
+        <router-link :to="{
+          name: 'sach.edit',
+          params: { id: sach._id },
+        }" v-if="1 === 1">
+          <button class="btn btn-warning">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>

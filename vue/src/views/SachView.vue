@@ -28,26 +28,8 @@
                 <p v-else>Không có sách nào.</p>
             </div>
             <hr>
-
-
         </div>
-        <div class="mt-3 col-md-6">
-            <div v-if="activeSach">
-                <h4>
-                    Chi tiết sách
-                    <i class="fas fa-book-reader"></i>
-                </h4>
-                <SachCard :sach="activeSach" />
-                <router-link :to="{
-                    name: 'sach.edit',
-                    params: { id: activeSach._id },
-                }">
-                    <span class="mt-2 badge badge-warning">
-                        <i class="fas fa-edit"></i> Hiệu chỉnh
-                    </span>
-                </router-link>
-            </div>
-        </div>
+
     </div>
 </template>
 
@@ -76,12 +58,7 @@ export default {
         },
     },
     computed: {
-        sachStrings() {
-            return this.sachList.map((sach) => {
-                const { tensach, dongia, soquyen, namxuatban, manxb, tacgia } = sach;
-                return [tensach, dongia, soquyen, namxuatban, manxb, tacgia].join("");
-            });
-        },
+
         filteredSach() {
             if (!this.searchText) return this.sachList;
             const lowerCaseSearchText = this.searchText.toLowerCase();
@@ -91,11 +68,6 @@ export default {
                 sach.namxuatban.toString().includes(lowerCaseSearchText) ||
                 sach.tacgia.toLowerCase().includes(lowerCaseSearchText)
             );
-        },
-
-        activeSach() {
-            if (this.activeIndex < 0) return null;
-            return this.filteredSach[this.activeIndex];
         },
         filteredSachCount() {
             return this.filteredSach.length;
