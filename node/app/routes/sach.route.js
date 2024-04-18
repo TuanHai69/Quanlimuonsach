@@ -3,12 +3,12 @@ const sach = require("../controllers/sach.controller");
 
 const router = express.Router();
 
-router.route("/sach/")
+router.route("/")
     .get(sach.findAll)
     .post(sach.create)
     .delete(sach.deleteAll);
 
-router.route("/sach/:id")
+router.route("/:id")
     .get(sach.findOne)
     .put(sach.update)
     .delete(sach.delete);

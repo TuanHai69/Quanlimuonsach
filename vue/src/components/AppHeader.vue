@@ -8,6 +8,12 @@
                     <i class="fas fa-address-book"></i>
                 </router-link>
             </li>
+            <li class="nav-item">
+                <router-link :to="{ name: 'sachview' }" class="nav-link">
+                    Sách
+                    <i class="fas fa-book"></i>
+                </router-link>
+            </li>
         </div>
     </nav>
 </template>
