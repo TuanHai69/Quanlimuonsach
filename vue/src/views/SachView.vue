@@ -8,7 +8,7 @@
             </h4>
             <hr>
             <div class="mt-3 row justify-content-around align-items-center">
-                <button class="btn btn-sm btn-primary" @click="refreshList()">
+                <button class="btn btn-sm btn-primary" @click="refreshList">
                     <i class="fas fa-redo"></i> Làm mới
                 </button>
                 <button class="btn btn-sm btn-success" @click="goToAddSach">
@@ -85,6 +85,7 @@ export default {
         refreshList() {
             this.retrieveSach();
             this.activeIndex = -1;
+            
         },
 
         async removeAllSach() {

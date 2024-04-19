@@ -22,5 +22,9 @@ class DocGiaService {
     async delete(id) {
         return (await this.api.delete(`/${id}`)).data;
     }
+    async login(data) {
+        return (await this.api.post("/login", data)).data;
+    }
+
 }
 export default new DocGiaService();

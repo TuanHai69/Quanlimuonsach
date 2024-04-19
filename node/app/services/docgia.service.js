@@ -2,10 +2,10 @@ const { ObjectId } = require("mongodb");
 
 class DocGiaService {
     constructor(client) {
-        this.DocGia = client.db().collection("docgia");    
+        this.DocGia = client.db().collection("docgia");
     }
 
-    extractDocGiaData(payload){
+    extractDocGiaData(payload) {
         const docgia = {
             holot: payload.holot,
             ten: payload.ten,
@@ -23,12 +23,12 @@ class DocGiaService {
         return docgia;
     }
 
-    async create(payload){
+    async create(payload) {
         const docgia = this.extractDocGiaData(payload);
         const result = await this.DocGia.findOneAndUpdate(
             docgia,
             { $set: docgia },
-            { returnDocument: "after", upsert: true}
+            { returnDocument: "after", upsert: true }
         );
         return result.value;
     }
@@ -47,15 +47,20 @@ class DocGiaService {
             ],
         });
     }
-    
-    
+
+
     async findById(id) {
         return await this.DocGia.findOne({
             _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         });
     }
 
-    async update(id, payload){
+    async findByEmailAndPassword(email, matkhau) {
+        return await this.DocGia.findOne({ email, matkhau });
+    }
+
+
+    async update(id, payload) {
         const filter = {
             _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         };
