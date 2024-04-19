@@ -20,6 +20,18 @@
                     <i class="fas fa-book"></i>
                 </router-link>
             </li>
+            <li class="nav-item">
+                <router-link :to="{ name: 'docgia.signup' }" class="nav-link">
+                    Signup
+                    <i class="fas fa-book"></i>
+                </router-link>
+            </li>
+            <!-- <li class="nav-item">
+                <router-link :to="{ name: 'docgia.edit', params: { id: docgia._id} }" class="nav-link">
+                    edit information
+                    <i class="fas fa-book"></i>
+                </router-link>
+            </li> -->
         </div>
 
     </nav>

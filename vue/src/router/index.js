@@ -60,6 +60,18 @@ const routes = [
         component: () => import("@/views/NhaxuatbanEdit.vue"),
         props: true // Truyền các biến trong $route.params vào làm props
     },
+    {
+        path: "/docgia",
+        name: "docgia.signup",
+        component: () => import("@/views/Signup.vue"),
+        props: true // Truyền các biến trong $route.params vào làm props
+    },
+    {
+        path: "/docgia/:id",
+        name: "docgia.edit",
+        component: () => import("@/views/DocgiaEdit.vue"),
+        props: true // Truyền các biến trong $route.params vào làm props
+    },
 ];
 
 const router = createRouter({

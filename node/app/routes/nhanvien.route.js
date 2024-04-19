@@ -3,11 +3,11 @@ const nhanvien = require("../controllers/nhanvien.controller");
 
 const router = express.Router();
 
-router.route("/nhanvien/")
+router.route("/")
     .get(nhanvien.findAll)
     .post(nhanvien.create)
 
-router.route("/nhanvien/:id")
+router.route("/:id")
     .get(nhanvien.findOne)
     .put(nhanvien.update)
     .delete(nhanvien.delete);
