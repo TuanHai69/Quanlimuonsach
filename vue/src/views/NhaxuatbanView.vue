@@ -8,7 +8,7 @@
                 Danh sách Nhà Xuất Bản
                 <i class="fas fa-book"></i>
             </h4>
-            <div class="mt-3 row justify-content-end align-items-center">
+            <div class="mt-3 row justify-content-end align-items-center" v-if="chucvu === 'staff' || chucvu === 'staff'">
                 <button class="btn btn-sm btn-primary" @click="refreshList()">
                     <i class="fas fa-redo"></i> Làm mới
                 </button>
@@ -34,6 +34,7 @@ import NhaxuatbanCard from "@/components/NhaxuatbanCard.vue";
 import InputSearch from "@/components/InputSearch.vue";
 import NhaxuatbanList from "@/components/NhaxuatbanList.vue";
 import NhaxuatbanService from "@/services/nhaxuatban.service";
+import LocalStorageHelper from '@/services/local.service';
 
 export default {
     components: {
@@ -46,6 +47,7 @@ export default {
             nhaxuatban: [],
             activeIndex: -1,
             searchText: "",
+            chucvu: LocalStorageHelper.getItem('chucvu'),
         };
     },
     watch: {

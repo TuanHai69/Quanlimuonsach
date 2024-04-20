@@ -78,6 +78,24 @@ const routes = [
         component: () => import("@/views/Login.vue"),
         props: true // Truyền các biến trong $route.params vào làm props
     },
+    {
+        path: "/nhanvien",
+        name: "nhanvienview",
+        component: () => import("@/views/NhanvienView.vue"),
+        props: true // Truyền các biến trong $route.params vào làm props
+    },
+    {
+        path: "/nhanvien/add",
+        name: "nhanvien.add",
+        component: () => import("@/views/NhanvienAdd.vue"),
+        props: true // Truyền các biến trong $route.params vào làm props
+    },
+    {
+        path: "/nhanvien/:id",
+        name: "nhanvien.edit",
+        component: () => import("@/views/NhanvienEdit.vue"),
+        props: true // Truyền các biến trong $route.params vào làm props
+    },
 ];
 
 const router = createRouter({

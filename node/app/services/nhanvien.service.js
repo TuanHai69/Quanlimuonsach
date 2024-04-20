@@ -48,6 +48,10 @@ class NhanVienService {
         });
     }
 
+    async findByEmailAndPassword(email, matkhau) {
+        return await this.NhanVien.findOne({ email, matkhau });
+    }
+
     async update(id, payload){
         const filter = {
             _id: ObjectId.isValid(id) ? new ObjectId(id) : null,

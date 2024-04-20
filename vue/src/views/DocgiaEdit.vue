@@ -1,7 +1,7 @@
 <template>
     <div v-if="docgia" class="page">
         <h4>Hiệu chỉnh Độc Giả</h4>
-        <DocGiaForm :docgia="docgia" @submit:docgia="updateDocGia" @delete:docgia="deleteDocGia" />
+        <DocGiaForm :docgia="docgia" @submit:docgia="updateDocGia" />
         <p>{{ message }}</p>
     </div>
 </template>
@@ -46,16 +46,6 @@ export default {
                 this.message = "Độc giả được cập nhật thành công.";
             } catch (error) {
                 console.log(error);
-            }
-        },
-        async deleteDocGia() {
-            if (confirm("Bạn muốn xóa Độc Giả này?")) {
-                try {
-                    await DocGiaService.delete(this.docgia._id);
-                    this.$router.push({ name: "sachview" });
-                } catch (error) {
-                    console.log(error);
-                }
             }
         },
     },

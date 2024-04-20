@@ -54,6 +54,26 @@ exports.findOne = async (req, res, next) => {
     }
 };
 
+exports.findByEmailAndPassword = async (req, res, next) => {
+    const { email, matkhau } = req.body;
+    if (!email || !matkhau) {
+        return next(new ApiError(400, "Email và mật khẩu không thể để trống"));
+    }
+
+    try {
+        const nhanvienService = new NhanVienService(MongoDB.client);
+        const document = await nhanvienService.findByEmailAndPassword(email, matkhau);
+        if (!document) {
+            return next(new ApiError(401, "Email hoặc mật khẩu không đúng"));
+        }
+        return res.send(document);
+    } catch (error) {
+        return next(
+            new ApiError(500, "Đã xảy ra lỗi khi kiểm tra email và mật khẩu")
+        );
+    }
+};
+
 exports.update = async (req, res, next) => {
     if (req.body && Object.keys(req.body).length === 0) {
         return next(new ApiError(400, "Dữ liệu cập nhật không thể để trống"));

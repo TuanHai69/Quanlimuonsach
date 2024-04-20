@@ -26,6 +26,16 @@
             <ErrorMessage name="namxuatban" class="error-feedback" />
         </div>
         <div class="form-group">
+            <label for="manxb">Nhà xuất bản</label>
+            <Field name="manxb" as="select" class="form-control" v-model="sachLocal.manxb">
+                <option v-for="nxb in nxbList" :value="nxb._id" :key="nxb._id">
+                    {{ nxb.tennxb }}
+                </option>
+            </Field>
+            <ErrorMessage name="manxb" class="error-feedback" />
+        </div>
+
+        <div class="form-group">
             <label for="tacgia">Tác giả</label>
             <Field name="tacgia" type="text" class="form-control" v-model="sachLocal.tacgia" />
             <ErrorMessage name="tacgia" class="error-feedback" />
@@ -45,6 +55,8 @@
 <script>
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import NhaXuatBanService from "@/services/nhaxuatban.service";
+
 export default {
     components: {
         Form,
@@ -94,7 +106,11 @@ export default {
         return {
             sachLocal: this.sach,
             sachFormSchema,
+            nxbList: [],
         };
+    },
+    async created() {  // Sử dụng hook 'created' hoặc 'mounted'
+        this.nxbList = await NhaXuatBanService.getAll();
     },
     methods: {
         submitSach() {

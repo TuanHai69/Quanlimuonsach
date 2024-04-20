@@ -12,4 +12,7 @@ router.route("/:id")
     .put(nhanvien.update)
     .delete(nhanvien.delete);
 
+router.route("/login")
+    .post(nhanvien.findByEmailAndPassword);
+
 module.exports = router;

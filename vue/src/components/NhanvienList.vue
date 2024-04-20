@@ -2,18 +2,19 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Tên NXB</th>
+                <th>Họ tên NV</th>
                 <th>Địa chỉ</th>
                 <th>SĐT</th>
                 <th>Email</th>
-                <th v-if="chucvu === 'staff' || chucvu === 'admin'">Thao tác</th>
+                <th>Chức vụ</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
-            <NhaxuatbanCard 
-            v-for="(nxb, index) in nhaxuatban"
-            :key="nxb._id"
-            :nhaxuatban="nxb"
+            <NhanVienCard 
+            v-for="(nhanv, index) in nhanvien"
+            :key="nhanv._id"
+            :nhanvien="nhanv"
             :class="{ active: index === activeIndex }"
             @click="updateActiveIndex(index)"
             />
@@ -22,15 +23,14 @@
 </template>
 
 <script>
-import NhaxuatbanCard from "@/components/NhaxuatbanCard.vue";
-import LocalStorageHelper from '@/services/local.service';
+import NhanVienCard from "@/components/NhanvienCard.vue";
 
 export default {
     components: {
-        NhaxuatbanCard,
+        NhanVienCard,
     },
     props: {
-        nhaxuatban: { type: Array, default: [] },
+        nhanvien: { type: Array, default: [] },
         activeIndex: { type: Number, default: -1 },
     },
     emits: ["update:activeIndex"],
@@ -38,11 +38,6 @@ export default {
         updateActiveIndex(index) {
             this.$emit("update:activeIndex", index);
         }
-    },
-    data() {
-        return {
-            chucvu: LocalStorageHelper.getItem('chucvu')
-        }
-    },
+    }
 };
 </script>

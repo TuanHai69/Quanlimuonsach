@@ -31,40 +31,44 @@
 
 <script>
 import DocGiaService from "@/services/docgia.service";
+import NhanVienService from "@/services/nhanvien.service";
 import LocalStorageHelper from '@/services/local.service';
-// import { EventBus } from '@/services/event.bus';
 
 export default {
     data() {
         return {
             email: '',
             matkhau: '',
-            errorMessage: '', // Thêm trường này để hiển thị thông báo lỗi
+            errorMessage: '',
         };
     },
     methods: {
         async submitForm() {
             try {
                 const docgia = await DocGiaService.login({ email: this.email, matkhau: this.matkhau });
-                // Lưu thông tin docgia vào localStorage
                 LocalStorageHelper.setItem('id', docgia._id);
                 LocalStorageHelper.setItem('holot', docgia.holot);
                 LocalStorageHelper.setItem('ten', docgia.ten);
-                // Nếu dữ liệu không có trường chucvu, tự động lưu chucvu=client
-                // console.log(LocalStorageHelper.getItem('id'));
                 LocalStorageHelper.setItem('chucvu', docgia.chucvu || 'client');
-
                 this.$router.push({ name: "sachview" });
-
             } catch (error) {
-                // Xử lý lỗi
-                this.errorMessage = 'Không có tài khoản hoặc email / mật khẩu không hợp lệ';
+                // Nếu không tìm thấy độc giả, kiểm tra xem có phải là nhân viên không
+                try {
+                    const nhanvien = await NhanVienService.login({ email: this.email, matkhau: this.matkhau });
+                    LocalStorageHelper.setItem('id', nhanvien._id);
+                    LocalStorageHelper.setItem('hotennv', nhanvien.hotennv);
+                    LocalStorageHelper.setItem('chucvu', nhanvien.chucvu);
+                    console.log(LocalStorageHelper.getItem('chucvu'));
+                    this.$router.push({ name: "sachview" });
+                } catch (error) {
+                    this.errorMessage = 'Không có tài khoản hoặc email / mật khẩu không hợp lệ';
+                }
             }
         },
     },
 };
-
 </script>
+
 
 <style scoped>
 .bodylog {

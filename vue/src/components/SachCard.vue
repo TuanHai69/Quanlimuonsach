@@ -7,7 +7,7 @@
         <strong>Giá:</strong> {{ sach.dongia }}<br>
         <strong>Số quyển:</strong> {{ sach.soquyen }}<br>
         <strong>Năm xuất bản:</strong> {{ sach.namxuatban }}<br>
-        <!-- <strong>Mã NXB:</strong> {{ sach.manxb }}<br> -->
+        <strong>NXB:</strong> {{ sach.manxb }}<br>
         <strong>Tác giả:</strong> {{ sach.tacgia }}
       </p>
       <div class="d-flex justify-content-end">
@@ -15,7 +15,7 @@
         <router-link :to="{
           name: 'sach.edit',
           params: { id: sach._id },
-        }" v-if="1 === 1">
+        }" v-if="chucvu === 'staff' || chucvu === 'admin'">
           <button class="btn btn-warning">
             <i class="fas fa-edit"></i> Edit
           </button>
@@ -26,13 +26,20 @@
 </template>
 
 <script>
+import LocalStorageHelper from '@/services/local.service';
+
 export default {
   props: {
     sach: {
       type: Object,
       required: true
     }
-  }
+  },
+  data() {
+    return {
+      chucvu: LocalStorageHelper.getItem('chucvu')
+    }
+  },
 }
 </script>
 

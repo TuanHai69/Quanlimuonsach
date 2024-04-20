@@ -50,9 +50,7 @@
             <button v-if="!docgiaLocal._id" type="button" class="ml-2 btn btn-primary" @click="addDocGia">
                 Thêm
             </button>
-            <button v-if="docgiaLocal._id" type="button" class="ml-2 btn btn-danger" @click="deleteDocGia">
-                Xóa
-            </button>
+
         </div>
     </Form>
 </template>
@@ -66,7 +64,7 @@ export default {
         Field,
         ErrorMessage,
     },
-    emits: ["submit:docgia", "delete:docgia", "add:docgia"],
+    emits: ["submit:docgia", "add:docgia"],
     props: {
         docgia: { type: Object, required: true }
     },
@@ -117,9 +115,6 @@ export default {
     methods: {
         submitDocGia() {
             this.$emit("submit:docgia", this.docgiaLocal);
-        },
-        deleteDocGia() {
-            this.$emit("delete:docgia", this.docgiaLocal.id);
         },
         addDocGia() {
             this.$emit("add:docgia", this.docgiaLocal);

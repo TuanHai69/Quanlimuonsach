@@ -5,7 +5,8 @@
         <td>{{ nhaxuatban.sdt }}</td>
         <td>{{ nhaxuatban.email }}</td>
         <td>
-            <router-link :to="{ name: 'nhaxuatban.edit', params: { id: nhaxuatban._id }, }" v-if="1 === 1">
+            <router-link :to="{ name: 'nhaxuatban.edit', params: { id: nhaxuatban._id }, }"
+                v-if="chucvu === 'staff' || chucvu === 'admin'">
                 <button class="btn btn-warning">
                     <i class="fas fa-edit"></i> Hiệu chỉnh
                 </button>
@@ -15,9 +16,16 @@
 </template>
 
 <script>
+import LocalStorageHelper from '@/services/local.service';
+
 export default {
     props: {
         nhaxuatban: { type: Object, required: true },
+    },
+    data() {
+        return {
+            chucvu: LocalStorageHelper.getItem('chucvu')
+        }
     },
 };
 </script>

@@ -21,8 +21,14 @@
                     <i class="fas fa-book"></i>
                 </router-link>
             </li>
+            <li class="nav-item" v-if="chucvu === 'staff' || chucvu === 'admin'">
+                <router-link :to="{ name: 'nhanvienview' }" class="nav-link">
+                    Nhân viên
+                    <i class="fas fa-book"></i>
+                </router-link>
+            </li>
             <!-- Nếu người dùng đã đăng nhập (localStorage có id) -->
-            <li class="nav-item" v-if="isLoggedIn">
+            <li class="nav-item" v-if="isLoggedIn && chucvu === 'client'">
                 <router-link :to="{ name: 'docgia.edit', params: { id: userId } }" class="nav-link">
                     Tài khoản
                     <i class="fas fa-user"></i>
@@ -62,19 +68,21 @@ export default {
     data() {
         return {
             isLoggedIn: false,
-            userId: LocalStorageHelper.getItem('id')
+            userId: LocalStorageHelper.getItem('id'),
+            chucvu: ''
         };
     },
-    created() { // Sử dụng hook 'created' thay vì 'beforeCreate'
+    created() {
         this.checkLoginStatus();
-
     },
     methods: {
         checkLoginStatus() {
             if (LocalStorageHelper.getItem('id')) {
                 this.isLoggedIn = true;
+                this.chucvu = LocalStorageHelper.getItem('chucvu'); // Đọc lại giá trị của chucvu
             } else {
                 this.isLoggedIn = false;
+                this.chucvu = ''; // Đặt lại giá trị của chucvu
             }
         },
         logout() {
@@ -85,3 +93,4 @@ export default {
     },
 };
 </script>
+

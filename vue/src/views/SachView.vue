@@ -7,7 +7,7 @@
                 <i class="fas fa-book"></i>
             </h4>
             <hr>
-            <div class="mt-3 row justify-content-around align-items-center">
+            <div class="mt-3 row justify-content-around align-items-center" v-if="chucvu === 'staff' || chucvu === 'admin'" >
                 <button class="btn btn-sm btn-primary" @click="refreshList">
                     <i class="fas fa-redo"></i> Làm mới
                 </button>
@@ -38,6 +38,8 @@ import SachCard from "@/components/SachCard.vue";
 import InputSearch from "@/components/InputSearch.vue";
 import SachList from "@/components/SachList.vue";
 import SachService from "@/services/sach.service";
+import NhaXuatBanService from "@/services/nhaxuatban.service";
+import LocalStorageHelper from '@/services/local.service';
 
 export default {
     components: {
@@ -50,6 +52,7 @@ export default {
             sachList: [],
             activeIndex: -1,
             searchText: "",
+            chucvu: LocalStorageHelper.getItem('chucvu'),
         };
     },
     watch: {
@@ -76,7 +79,18 @@ export default {
     methods: {
         async retrieveSach() {
             try {
-                this.sachList = await SachService.getAll();
+                const sachList = await SachService.getAll();
+                // Fetch nhà xuất bản cho mỗi sách
+                for (let sach of sachList) {
+                    if (sach.manxb) {
+                        const nxb = await NhaXuatBanService.get(sach.manxb);
+                        // Thay thế 'nxb' bằng tên của nhà xuất bản
+                        sach.manxb = nxb ? nxb.tennxb : 'Không có';
+                    } else {
+                        sach.manxb = 'Không có';
+                    }
+                }
+                this.sachList = sachList;
             } catch (error) {
                 console.log(error);
             }
@@ -85,7 +99,7 @@ export default {
         refreshList() {
             this.retrieveSach();
             this.activeIndex = -1;
-            
+
         },
 
         async removeAllSach() {
