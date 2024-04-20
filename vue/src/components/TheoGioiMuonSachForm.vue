@@ -1,13 +1,18 @@
 <template>
     <Form @submit="submitTheoGioiMuonSach" :validation-schema="theogioimuonsachFormSchema">
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="madocgia">Mã độc giả</label>
             <Field name="madocgia" type="text" class="form-control" v-model="theogioimuonsachLocal.madocgia" disabled />
+            <ErrorMessage name="madocgia" class="error-feedback" />
+        </div> -->
+        <div class="form-group">
+            <label for="madocgia">Tên độc giả</label>
+            <Field name="madocgia" type="text" class="form-control" v-model="docgiaName" disabled />
             <ErrorMessage name="madocgia" class="error-feedback" />
         </div>
         <div class="form-group">
             <label for="masach">Mã sách</label>
-            <Field name="masach" type="text" class="form-control" v-model="theogioimuonsachLocal.masach" disabled />
+            <Field name="masach" type="text" class="form-control" v-model="tensach" disabled />
             <ErrorMessage name="masach" class="error-feedback" />
         </div>
         <div class="form-group">
@@ -49,6 +54,9 @@
 <script>
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import DocGiaService from "@/services/docgia.service";
+import NhanVienService from "@/services/nhanvien.service";
+import SachService from "@/services/sach.service";
 
 export default {
     components: {
@@ -87,15 +95,48 @@ export default {
         return {
             theogioimuonsachLocal: this.theogioimuonsach,
             theogioimuonsachFormSchema,
+            docgiaName: '',
+            tensach: '',
         };
     },
     methods: {
+        async getDocGiaName(id) {
+            try {
+                const docgia = await DocGiaService.get(id);
+                if (docgia) {
+                    return docgia.holot + ' ' + docgia.ten;
+                } else {
+                    const nhanvien = await NhanVienService.get(id);
+                    if (nhanvien) {
+                        return nhanvien.hotennv;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            return 'Không xác định';
+        },
+        async getSachName(id) {
+            try {
+                const sach = await SachService.get(id);
+                if (sach) {
+                    return sach.tensach;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            return 'Không xác định';
+        },
         submitTheoGioiMuonSach() {
             this.$emit("submit:theogioimuonsach", this.theogioimuonsachLocal);
         },
         deleteTheoGioiMuonSach() {
             this.$emit("delete:theogioimuonsach", this.theogioimuonsachLocal._id);
         },
+    },
+    async created() {
+        this.docgiaName = await this.getDocGiaName(this.theogioimuonsach.madocgia);
+        this.tensach = await this.getSachName(this.theogioimuonsach.masach);
     },
 };
 </script>

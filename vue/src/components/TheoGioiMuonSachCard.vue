@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td>{{ docgiaName }}</td>
-        <td>{{ theogioimuonsach.masach }}</td>
+        <td>{{ tensach }}</td>
         <td>{{ theogioimuonsach.ngaymuon }}</td>
         <td>{{ theogioimuonsach.ngaytra }}</td>
         <td>{{ theogioimuonsach.trangthai }}</td>
@@ -20,6 +20,7 @@
 <script>
 import DocGiaService from "@/services/docgia.service";
 import NhanVienService from "@/services/nhanvien.service";
+import SachService from "@/services/sach.service";
 import LocalStorageHelper from '@/services/local.service';
 
 export default {
@@ -30,6 +31,7 @@ export default {
         return {
             chucvu: LocalStorageHelper.getItem('chucvu'),
             docgiaName: '',
+            tensach: '',
         }
     },
     methods: {
@@ -49,10 +51,22 @@ export default {
             }
             return 'Không xác định';
         },
+        async getSachName(id) {
+            try {
+                const sach = await SachService.get(id);
+                if (sach) {
+                    return sach.tensach;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            return 'Không xác định';
+        },
     },
     async created() {
         this.docgiaName = await this.getDocGiaName(this.theogioimuonsach.madocgia);
-        console.log(this.docgiaName)
+        this.tensach = await this.getSachName(this.theogioimuonsach.masach);
+        // console.log(this.docgiaName)
     },
 };
 </script>
