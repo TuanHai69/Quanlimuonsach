@@ -32,6 +32,21 @@ exports.findAll = async (req, res, next) => {
     return res.send(documents);
 };
 
+exports.findmadocgia = async (req, res, next) => {
+    let documents = [];
+
+    try {
+        const theogioimuonsachService = new TheoGioiMuonSachService(MongoDB.client);
+        documents = await theogioimuonsachService.findmadocgia(req.params.madocgia);
+    } catch (error) {
+        return next(
+            new ApiError(500, "Đã xảy ra lỗi khi lấy thông tin mượn sách theo mã độc giả")
+        );
+    }
+    return res.send(documents);
+};
+
+
 exports.findOne = async (req, res, next) => {
     try {
         const theogioimuonsachService = new TheoGioiMuonSachService(MongoDB.client);

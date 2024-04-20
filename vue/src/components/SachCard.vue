@@ -11,7 +11,7 @@
         <strong>Tác giả:</strong> {{ sach.tacgia }}
       </p>
       <div class="d-flex justify-content-end">
-        <a href="#" class="btn btn-primary mr-auto">Mượn</a>
+        <button @click="muonSach" class="btn btn-primary mr-auto">Mượn</button>
         <router-link :to="{
           name: 'sach.edit',
           params: { id: sach._id },
@@ -27,6 +27,7 @@
 
 <script>
 import LocalStorageHelper from '@/services/local.service';
+import TheogioimuonsachService from '@/services/theogioimuonsach.service';
 
 export default {
   props: {
@@ -40,6 +41,28 @@ export default {
       chucvu: LocalStorageHelper.getItem('chucvu')
     }
   },
+  methods: {
+    async muonSach() {
+      console.log(LocalStorageHelper.getItem('id'))
+      console.log(this.sach._id)
+      const theogms = {
+        madocgia: LocalStorageHelper.getItem('id'),
+        masach: this.sach._id,
+        ngaymuon: new Date().toISOString().slice(0, 10), // ngày hiện tại
+        ngaytra: new Date().toISOString().slice(0, 10), 
+        trangthai: 'chờ xét duyệt',
+        dongia: this.sach.dongia,
+      };
+      console.log(theogms)
+      try {
+        await TheogioimuonsachService.create(theogms);
+        alert('Đã mượn sách thành công!');
+      } catch (error) {
+        console.error(error);
+        alert('Cần đăng nhập để mượn sách!');
+      }
+    }
+  }
 }
 </script>
 

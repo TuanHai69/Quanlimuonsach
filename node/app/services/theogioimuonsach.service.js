@@ -11,6 +11,8 @@ class TheoGioiMuonSachService {
             masach: payload.masach,
             ngaymuon: payload.ngaymuon,
             ngaytra: payload.ngaytra,
+            trangthai: payload.trangthai,
+            dongia: payload.dongia,
         };
 
         Object.keys(theogioimuonsach).forEach(
@@ -39,6 +41,12 @@ class TheoGioiMuonSachService {
             _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         });
     }
+
+    async findmadocgia(madocgia) {
+        const cursor = await this.TheoGioiMuonSach.find({madocgia: madocgia});
+        return await cursor.toArray();
+    }
+    
 
     async update(id, payload){
         const filter = {

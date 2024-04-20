@@ -91,6 +91,8 @@ export default {
                     }
                 }
                 this.sachList = sachList;
+                console.log(this.sachList)
+
             } catch (error) {
                 console.log(error);
             }

@@ -21,6 +21,12 @@
                     <i class="fas fa-book"></i>
                 </router-link>
             </li>
+            <li class="nav-item" v-if="chucvu === 'staff' || chucvu === 'admin' || chucvu === 'client'">
+                <router-link :to="{ name: 'theogioimuonsachview' }" class="nav-link">
+                    Hàng đợi mượn Sách
+                    <i class="fas fa-book"></i>
+                </router-link>
+            </li>
             <li class="nav-item" v-if="chucvu === 'staff' || chucvu === 'admin'">
                 <router-link :to="{ name: 'nhanvienview' }" class="nav-link">
                     Nhân viên
