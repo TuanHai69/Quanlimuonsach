@@ -1,7 +1,15 @@
 <template>
     <div class="page row">
         <div class="col-md-10">
-            <InputSearch v-model="searchText" />
+            <select v-model="searchText" @change="filterByStatus">
+                <option disabled value="">Vui lòng chọn trạng thái</option>
+                <option value="">All</option>
+                <option>Chờ xét duyệt</option>
+                <option>Đã duyệt</option>
+                <option>Trể hạn</option>
+                <option>Đang mượn</option>
+                <option>Đã trả</option>
+            </select>
         </div>
         <div class="mt-3 col-md-12">
             <h4>
@@ -49,8 +57,9 @@ export default {
                 return this.theogioimuonsach.filter(item => item.madocgia === this.id);
             }
             if (!this.searchText) return this.theogioimuonsach;
-            return this.theogioimuonsach.filter((_item, index) =>
-                this.theogioimuonsachStrings[index].includes(this.searchText)
+            const lowerCaseSearchText = this.searchText.toLowerCase();
+            return this.theogioimuonsach.filter(theogioimuonsach =>
+                theogioimuonsach.trangthai.toLowerCase().includes(lowerCaseSearchText)
             );
         },
 

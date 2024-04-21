@@ -11,7 +11,7 @@
             <ErrorMessage name="madocgia" class="error-feedback" />
         </div>
         <div class="form-group">
-            <label for="masach">Mã sách</label>
+            <label for="masach">Tên sách</label>
             <Field name="masach" type="text" class="form-control" v-model="tensach" disabled />
             <ErrorMessage name="masach" class="error-feedback" />
         </div>

@@ -4,12 +4,6 @@
         <a href="#" class="navbar-brand" @click="checkLoginStatus">Ứng dụng quản lý mượn sách </a>
         <div class="mr-auto navbar-nav">
             <li class="nav-item">
-                <router-link :to="{ name: 'contactbook' }" class="nav-link">
-                    Danh bạ
-                    <i class="fas fa-address-book"></i>
-                </router-link>
-            </li>
-            <li class="nav-item">
                 <router-link :to="{ name: 'sachview' }" class="nav-link">
                     Sách
                     <i class="fas fa-book"></i>
