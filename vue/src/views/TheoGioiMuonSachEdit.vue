@@ -1,10 +1,8 @@
 <template>
     <div v-if="theogioimuonsach" class="page">
         <h4>Hiệu chỉnh Theo Giới Mượn Sách</h4>
-        <TheoGioiMuonSachForm :theogioimuonsach="theogioimuonsach" 
-        @submit:theogioimuonsach="updateTheoGioiMuonSach"
-        @delete:theogioimuonsach="deleteTheoGioiMuonSach"
-        />
+        <TheoGioiMuonSachForm :theogioimuonsach="theogioimuonsach" @submit:theogioimuonsach="updateTheoGioiMuonSach"
+            @delete:theogioimuonsach="deleteTheoGioiMuonSach" />
         <p>{{ message }}</p>
     </div>
 </template>
@@ -13,6 +11,7 @@
 
 import TheoGioiMuonSachForm from "@/components/TheoGioiMuonSachForm.vue";
 import TheoGioiMuonSachService from "@/services/theogioimuonsach.service";
+import sachService from '@/services/sach.service';
 
 export default {
     components: {
@@ -48,6 +47,14 @@ export default {
             try {
                 await TheoGioiMuonSachService.update(this.theogioimuonsach._id, data);
                 this.message = "Thông tin mượn sách được cập nhật thành công.";
+
+                // If the book has been returned, increment the quantity
+                if (data.trangthai === 'đã trả') {
+                    const sach = await sachService.get(this.theogioimuonsach.masach);
+                    sach.soquyen += 1;
+                    await sachService.update(sach._id, { soquyen: sach.soquyen });
+                }
+
             } catch (error) {
                 console.log(error);
             }

@@ -64,6 +64,21 @@ exports.findOne = async (req, res, next) => {
     }
 };
 
+exports.findtrung = async (req, res, next) => {
+    let documents = [];
+
+    try {
+        const theogioimuonsachService = new TheoGioiMuonSachService(MongoDB.client);
+        documents = await theogioimuonsachService.findtrung(req.params.madocgia, req.params.masach, req.params.ngaymuon);
+    } catch (error) {
+        return next(
+            new ApiError(500, "Đã xảy ra lỗi khi tìm kiếm thông tin mượn sách")
+        );
+    }
+    return res.send(documents);
+};
+
+
 exports.update = async (req, res, next) => {
     if (req.body && Object.keys(req.body).length === 0) {
         return next(new ApiError(400, "Dữ liệu cập nhật không thể để trống"));

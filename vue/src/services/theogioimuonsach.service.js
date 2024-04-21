@@ -25,6 +25,9 @@ class TheoGioiMuonSachService {
     async findmadocgia(madocgia) {
         return (await this.api.get(`/madocgia/${madocgia}`)).data;
     }
+    async findtrung(madocgia, masach, ngaymuon) {
+        return (await this.api.get(`/findtrung/${madocgia}/${masach}/${ngaymuon}`)).data;
+    }
 }
 
 export default new TheoGioiMuonSachService();

@@ -32,7 +32,7 @@
                 <option value="đã duyệt">Đã duyệt</option>
                 <option value="đang mượn">Đang mượn</option>
                 <option value="trể hạn">Trể hạn</option>
-                <option value="trể hạn">Đã trả</option>
+                <option value="đã trả">Đã trả</option>
             </Field>
             <ErrorMessage name="trangthai" class="error-feedback" />
         </div>

@@ -28,6 +28,7 @@
 <script>
 import LocalStorageHelper from '@/services/local.service';
 import TheogioimuonsachService from '@/services/theogioimuonsach.service';
+import sachService from '@/services/sach.service';
 
 export default {
   props: {
@@ -43,19 +44,33 @@ export default {
   },
   methods: {
     async muonSach() {
-      console.log(LocalStorageHelper.getItem('id'))
-      console.log(this.sach._id)
+      const madocgia = LocalStorageHelper.getItem('id');
+      const masach = this.sach._id;
+      const ngaymuon = new Date().toISOString().slice(0, 10); // ngày hiện tại
+
+      // Check if the book has already been borrowed by the same user on the same day
+      const existingBorrow = await TheogioimuonsachService.findtrung(madocgia, masach, ngaymuon);
+      if (existingBorrow.length > 0) {
+        alert('Bạn đã mượn cuốn sách này trong ngày hôm nay. Vui lòng chọn một cuốn sách khác.');
+        return;
+      }
+
       const theogms = {
-        madocgia: LocalStorageHelper.getItem('id'),
-        masach: this.sach._id,
-        ngaymuon: new Date().toISOString().slice(0, 10), // ngày hiện tại
-        ngaytra: new Date().toISOString().slice(0, 10), 
+        madocgia,
+        masach,
+        ngaymuon,
+        ngaytra: ngaymuon,
         trangthai: 'chờ xét duyệt',
         dongia: this.sach.dongia,
       };
-      console.log(theogms)
+
       try {
         await TheogioimuonsachService.create(theogms);
+        // Update the book quantity after a successful borrow
+        if (this.sach.soquyen > 0) {
+          this.sach.soquyen -= 1;
+          await sachService.update(this.sach._id, { soquyen: this.sach.soquyen });
+        }
         alert('Đã mượn sách thành công!');
       } catch (error) {
         console.error(error);
@@ -65,6 +80,8 @@ export default {
   }
 }
 </script>
+
+
 
 <style scoped>
 .card-img-top {

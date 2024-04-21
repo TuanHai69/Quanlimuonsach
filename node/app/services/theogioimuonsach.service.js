@@ -41,6 +41,10 @@ class TheoGioiMuonSachService {
             _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         });
     }
+    async findtrung(madocgia, masach, ngaymuon) {
+        const cursor = await this.TheoGioiMuonSach.find({ madocgia, masach, ngaymuon });
+        return await cursor.toArray();
+    }
 
     async findmadocgia(madocgia) {
         const cursor = await this.TheoGioiMuonSach.find({madocgia: madocgia});

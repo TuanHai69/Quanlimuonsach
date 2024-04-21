@@ -15,5 +15,8 @@ router.route("/:id")
 
 router.route("/madocgia/:madocgia")
     .get(theogioimuonsach.findmadocgia);
+    
+router.route("/findtrung/:madocgia/:masach/:ngaymuon")
+    .get(theogioimuonsach.findtrung);
 
 module.exports = router;
