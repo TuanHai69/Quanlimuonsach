@@ -25,9 +25,9 @@
             <button v-if="!nhaxuatbanLocal._id" type="button" class="ml-2 btn btn-primary" @click="addNhaxuatban">
                 Thêm
             </button>
-            <button v-if="nhaxuatbanLocal._id" type="button" class="ml-2 btn btn-danger" @click="deleteNhaxuatban">
+            <!-- <button v-if="nhaxuatbanLocal._id" type="button" class="ml-2 btn btn-danger" @click="deleteNhaxuatban">
                 Xóa
-            </button>
+            </button> -->
         </div>
     </Form>
 </template>
@@ -74,9 +74,9 @@ export default {
         submitNhaxuatban() {
             this.$emit("submit:nhaxuatban", this.nhaxuatbanLocal);
         },
-        deleteNhaxuatban() {
-            this.$emit("delete:nhaxuatban", this.nhaxuatbanLocal.id);
-        },
+        // deleteNhaxuatban() {
+        //     this.$emit("delete:nhaxuatban", this.nhaxuatbanLocal.id);
+        // },
         addNhaxuatban() {
             this.$emit("add:nhaxuatban", this.nhaxuatbanLocal);
         },

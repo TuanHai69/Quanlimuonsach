@@ -15,9 +15,6 @@
                 <button class="btn btn-sm btn-success" @click="goToAddNhaxuatban">
                     <i class="fas fa-plus"></i> Thêm mới
                 </button>
-                <button class="btn btn-sm btn-danger" @click="removeAllNhaxuatban">
-                    <i class="fas fa-trash"></i> Xóa tất cả
-                </button>
             </div>
             <hr>
             <NhaxuatbanList v-if="filteredNhaxuatbanCount > 0" :nhaxuatban="filteredNhaxuatban"
@@ -85,17 +82,6 @@ export default {
         refreshList() {
             this.retrieveNhaxuatban();
             this.activeIndex = -1;
-        },
-
-        async removeAllNhaxuatban() {
-            if (confirm("Bạn muốn xóa tất cả Nhà Xuất Bản?")) {
-                try {
-                    await NhaxuatbanService.deleteAll();
-                    this.refreshList();
-                } catch (error) {
-                    console.log(error);
-                }
-            }
         },
 
         goToAddNhaxuatban() {

@@ -7,15 +7,9 @@
                 <i class="fas fa-book"></i>
             </h4>
             <hr>
-            <div class="mt-3 row justify-content-around align-items-center" v-if="chucvu === 'staff' || chucvu === 'admin'" >
-                <button class="btn btn-sm btn-primary" @click="refreshList">
-                    <i class="fas fa-redo"></i> Làm mới
-                </button>
+            <div class="mt-3 row justify-content-end align-items-center" v-if="chucvu === 'staff' || chucvu === 'admin'" >
                 <button class="btn btn-sm btn-success" @click="goToAddSach">
                     <i class="fas fa-plus"></i> Thêm mới
-                </button>
-                <button class="btn btn-sm btn-danger" @click="removeAllSach">
-                    <i class="fas fa-trash"></i> Xóa tất cả
                 </button>
             </div>
             <hr>
@@ -104,16 +98,6 @@ export default {
 
         },
 
-        async removeAllSach() {
-            if (confirm("Bạn muốn xóa tất cả sách?")) {
-                try {
-                    await SachService.deleteAll();
-                    this.refreshList();
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        },
 
         goToAddSach() {
             this.$router.push({ name: "sach.add" });

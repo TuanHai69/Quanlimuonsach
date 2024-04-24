@@ -10,6 +10,11 @@
             <Field name="email" type="email" class="form-control" v-model="nhanVienLocal.email" />
             <ErrorMessage name="email" class="error-feedback" />
         </div>
+        <div class="form-group" >
+            <label for="matkhau">Mật khẩu</label>
+            <Field name="matkhau" type="password" class="form-control" v-model="nhanVienLocal.matkhau" />
+            <ErrorMessage name="matkhau" class="error-feedback" />
+        </div>
         <div class="form-group">
             <label for="diachi">Địa chỉ</label>
             <Field name="diachi" type="text" class="form-control" v-model="nhanVienLocal.diachi" />
@@ -71,6 +76,10 @@ export default {
                     /((09|03|07|08|05)+([0-9]{8})\b)/g,
                     "Số điện thoại không hợp lệ."
                 ),
+            matkhau: yup
+                .string()
+                .required('Phải nhập vào mật khẩu')
+                .min(8, 'Mật khẩu phải có ít nhất 8 ký tự'),
             chucvu: yup
                 .string()
                 .required("Chức vụ phải có giá trị.")

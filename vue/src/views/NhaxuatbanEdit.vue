@@ -52,16 +52,16 @@ export default {
                 console.log(error);
             }
         },
-        async deleteNhaxuatban() {
-            if (confirm("Bạn muốn xóa Nhà Xuất Bản này?")) {
-                try {
-                    await NhaxuatbanService.delete(this.nhaxuatban._id);
-                    this.$router.push({ name: "nhaxuatbanview" });
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        },
+        // async deleteNhaxuatban() {
+        //     if (confirm("Bạn muốn xóa Nhà Xuất Bản này?")) {
+        //         try {
+        //             await NhaxuatbanService.delete(this.nhaxuatban._id);
+        //             this.$router.push({ name: "nhaxuatbanview" });
+        //         } catch (error) {
+        //             console.log(error);
+        //         }
+        //     }
+        // },
     },
     created() {
         this.getNhaxuatban(this.id);
